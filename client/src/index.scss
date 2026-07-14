@@ -1,0 +1,17 @@
+//index.scss
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+body {
+    font-family: "Lato", sans-serif;
+    overflow-x: hidden;
+    overflow-y: auto !important;
+}

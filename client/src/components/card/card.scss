@@ -1,0 +1,278 @@
+@import "../../responsive.scss";
+
+.card {
+  display: flex;
+  gap: 20px;
+
+  @include md {
+    gap: 16px;
+  }
+
+  @include sm {
+    flex-direction: column;
+    gap: 16px;
+    padding: 14px;
+    border: 1px solid #eee;
+    border-radius: 16px;
+    background-color: #fff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  .imageContainer {
+    flex: 2;
+    height: 200px;
+
+    @include md {
+      flex: 1.8;
+      height: 180px;
+    }
+
+    @include sm {
+      width: 100%;
+      height: 220px;
+      flex: unset;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+    }
+  }
+
+  .textContainer {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+    min-width: 0;
+
+    @include md {
+      gap: 12px;
+    }
+
+    @include sm {
+      gap: 14px;
+    }
+
+    img {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .title {
+      font-size: 22px;
+      font-weight: 600;
+      color: #333;
+      transition: all 0.3s ease;
+      line-height: 1.35;
+
+      @include md {
+        font-size: 20px;
+      }
+
+      @include sm {
+        font-size: 19px;
+      }
+
+      a {
+        display: inline-block;
+        word-break: break-word;
+      }
+
+      &:hover {
+        color: #000;
+        transform: translateX(3px);
+      }
+    }
+
+    .address {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      color: #777;
+      font-size: 14px;
+      line-height: 1.5;
+
+      span {
+        word-break: break-word;
+      }
+    }
+
+    .price {
+      width: max-content;
+      max-width: 100%;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: rgba(254, 205, 81, 0.4);
+      font-size: 22px;
+      font-weight: 500;
+
+      @include md {
+        font-size: 19px;
+      }
+
+      @include sm {
+        font-size: 18px;
+      }
+    }
+
+    .bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+
+      @include sm {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+      }
+
+      .features {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+
+        @include sm {
+          gap: 10px;
+        }
+
+        .feature {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          background: whitesmoke;
+          padding: 8px 12px;
+          border-radius: 8px;
+          font-size: 14px;
+
+          @include md {
+            padding: 7px 10px;
+            font-size: 13px;
+          }
+
+          @include sm {
+            flex: 1 1 calc(50% - 10px);
+          }
+
+          span {
+            white-space: nowrap;
+          }
+        }
+      }
+
+      .icons {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+
+        @include sm {
+          justify-content: flex-end;
+        }
+
+        .favoriteBtn,
+        .chatBtn,
+        .editBtn,
+        .deleteBtn {
+          width: 48px;
+          height: 48px;
+          border: none;
+          border-radius: 50%;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: white;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+          transition: all 0.3s ease;
+
+          @include md {
+            width: 44px;
+            height: 44px;
+          }
+
+          &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+          }
+
+          svg {
+            transition: all 0.3s ease;
+          }
+        }
+
+        /* FAVORITE */
+        .favoriteBtn {
+          color: #bdbdbd;
+
+          &:hover {
+            background: #fff5f7;
+
+            svg {
+              transform: scale(1.1);
+            }
+          }
+
+          &.saved {
+            background: #fff0f3;
+            color: #ff4d6d;
+
+            svg {
+              transform: scale(1.1);
+            }
+          }
+        }
+
+        /* CHAT */
+        .chatBtn {
+          color: #555;
+
+          &:hover {
+            background: #fece51;
+            color: #222;
+
+            svg {
+              transform: scale(1.1);
+            }
+          }
+        }
+
+        /* EDIT */
+        .editBtn {
+          color: #555;
+          border: 1px solid #e0e0e0;
+
+          &:hover {
+            background: #4caf50;
+            color: white;
+
+            svg {
+              transform: scale(1.1);
+            }
+          }
+        }
+
+        /* DELETE */
+        .deleteBtn {
+          color: #555;
+          border: 1px solid #e0e0e0;
+
+          &:hover {
+            background: #f44336;
+            color: white;
+
+            svg {
+              transform: scale(1.1);
+            }
+          }
+        }
+      }
+    }
+  }
+}

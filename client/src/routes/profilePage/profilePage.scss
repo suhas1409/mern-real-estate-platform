@@ -1,0 +1,195 @@
+@import "../../responsive.scss";
+
+.profilePage {
+  display: flex;
+  min-height: 100%;
+  align-items: flex-start;
+  position: relative;
+
+  @include md {
+    display: block;
+  }
+
+  /* VIEW SWITCHER */
+  .profileViewSwitcher {
+    display: none;
+
+    @include md {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px;
+      margin-bottom: 20px;
+      background-color: white;
+      position: sticky;
+      top: 0;
+      z-index: 500;
+    }
+
+    button {
+      padding: 10px 22px;
+      border: 1px solid #fece51;
+      background-color: white;
+      color: #333;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #fff8e5;
+      }
+
+      &.active {
+        background-color: #fece51;
+        color: #111;
+        font-weight: 600;
+      }
+    }
+  }
+
+  /* LEFT SIDE */
+  .details {
+    flex: 3;
+    min-width: 0;
+    padding-bottom: 50px;
+
+    @include md {
+      display: none;
+      width: 100%;
+
+      &.show {
+        display: block;
+      }
+    }
+
+    .wrapper {
+      padding-right: 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+
+      @include md {
+        padding-right: 0;
+        gap: 35px;
+      }
+
+      @include sm {
+        gap: 30px;
+      }
+
+      .title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+
+        @include sm {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 14px;
+        }
+
+        h1 {
+          font-weight: 300;
+
+          @include md {
+            font-size: 30px;
+          }
+
+          @include sm {
+            font-size: 26px;
+          }
+        }
+
+        a {
+          @include sm {
+            width: 100%;
+          }
+        }
+
+        button {
+          padding: 12px 24px;
+          background-color: #fece51;
+          border: none;
+          cursor: pointer;
+          border-radius: 6px;
+
+          @include sm {
+            width: 100%;
+          }
+
+          &:hover {
+            opacity: 0.9;
+          }
+        }
+      }
+
+      .info {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        span {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+        }
+
+        strong {
+          word-break: break-word;
+        }
+
+        button {
+          width: 120px;
+          background-color: rgb(24, 166, 166);
+          border: none;
+          padding: 10px;
+          cursor: pointer;
+          border-radius: 5px;
+          color: white;
+
+          @include sm {
+            width: 100%;
+          }
+        }
+
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          object-fit: cover;
+          flex-shrink: 0;
+        }
+      }
+    }
+  }
+
+  /* CHAT SIDE */
+  .chatContainer {
+    flex: 2;
+    align-self: stretch;
+    background-color: #fcf5f3;
+    min-width: 0;
+
+    @include md {
+      display: none;
+      width: 100%;
+      min-height: 500px;
+
+      &.show {
+        display: block;
+      }
+    }
+
+    .wrapper {
+      padding: 20px;
+      box-sizing: border-box;
+
+      @include sm {
+        padding: 15px;
+      }
+    }
+  }
+}

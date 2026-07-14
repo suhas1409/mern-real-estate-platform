@@ -1,0 +1,258 @@
+@import "../../responsive.scss";
+
+.chat {
+  width: 100%;
+  height: calc(100vh - 140px);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+  box-sizing: border-box;
+  min-width: 0;
+  overflow: hidden;
+
+  @include md {
+    height: 650px;
+  }
+
+  @include sm {
+    height: 600px;
+    padding: 10px;
+    gap: 10px;
+  }
+
+  /* TITLE */
+  .chatTitle {
+    font-weight: 400;
+    flex-shrink: 0;
+
+    @include sm {
+      font-size: 26px;
+    }
+  }
+
+  /* CHAT LIST */
+  .messages {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 180px;
+    overflow-y: auto;
+    flex-shrink: 0;
+
+    @include sm {
+      max-height: 150px;
+      padding: 10px;
+    }
+
+    .noChats {
+      color: gray;
+      font-size: 14px;
+    }
+
+    .message {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      min-width: 0;
+
+      &:hover {
+        background: #f5f5f5;
+      }
+
+      &.active {
+        background: #fece51;
+      }
+
+      img {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        object-fit: cover;
+        flex-shrink: 0;
+
+        @include sm {
+          width: 40px;
+          height: 40px;
+        }
+      }
+
+      .messageInfo {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+
+        span {
+          font-weight: 600;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        p {
+          font-size: 12px;
+          color: gray;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+
+  /* CHAT BOX */
+  .chatBox {
+    flex: 1;
+    min-height: 0;
+    background: white;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    .noChat {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: gray;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    /* CHAT HEADER */
+    .top {
+      padding: 12px 15px;
+      background: #fece51;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+
+      .user {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+
+        img {
+          width: 35px;
+          height: 35px;
+          border-radius: 50%;
+          object-fit: cover;
+          flex-shrink: 0;
+        }
+
+        span {
+          font-weight: 600;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+
+      .close {
+        cursor: pointer;
+        flex-shrink: 0;
+      }
+    }
+
+    /* MESSAGE AREA */
+    .center {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 12px 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: #fafafa;
+
+      @include sm {
+        padding: 10px;
+      }
+    }
+
+    .chatMessage {
+      max-width: 60%;
+      word-break: break-word;
+
+      @include sm {
+        max-width: 80%;
+      }
+
+      p {
+        background: #eee;
+        padding: 10px;
+        margin: 0;
+        border-radius: 10px;
+        line-height: 1.4;
+      }
+
+      span {
+        display: block;
+        margin-top: 3px;
+        font-size: 11px;
+        color: gray;
+      }
+
+      &.own {
+        align-self: flex-end;
+
+        p {
+          background: #fece51;
+        }
+
+        span {
+          text-align: right;
+        }
+      }
+    }
+
+    /* MESSAGE INPUT */
+    .bottom {
+      min-height: 60px;
+      display: flex;
+      border-top: 1px solid #ddd;
+      flex-shrink: 0;
+
+      textarea {
+        flex: 3;
+        min-width: 0;
+        border: none;
+        padding: 12px;
+        resize: none;
+        outline: none;
+      }
+
+      button {
+        flex: 1;
+        border: none;
+        background: #fece51;
+        cursor: pointer;
+        font-weight: bold;
+
+        @include sm {
+          flex: none;
+          width: 70px;
+        }
+      }
+    }
+  }
+
+  /* OPEN CHAT ON MEDIUM AND SMALL SCREEN */
+  &.chatOpened {
+    @include md {
+      .messages {
+        display: none;
+      }
+    }
+  }
+}

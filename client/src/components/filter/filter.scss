@@ -1,0 +1,95 @@
+@import "../../responsive.scss";
+
+.filter {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    h1{
+        font-size: 24px;
+        font-weight: 300;
+
+        @include sm {
+            font-size: 22px;
+        }
+    }
+
+    .item {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+
+        label {
+            font-size: 10px;
+        }
+
+        input, 
+        select {
+            width: 100px;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+    }
+
+    .top {
+        .item {
+            width: 100%;
+        }
+
+        input {
+            width: 100%;
+        }
+    }
+
+    .bottom {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+
+        @include md {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+
+            .item {
+                width: 100%;
+            }
+
+            input,
+            select {
+                width: 100%;
+            }
+        }
+    }    
+
+    @include sm {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    button {
+        width: 100px;
+        padding: 10px;
+        background-color: #fece51;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        @include md {
+            width: 100%;
+            min-height: 40px;
+            align-items: end;
+        }
+
+        img {
+            width: 24px;
+            height: 24px;
+        }
+    }    
+}
