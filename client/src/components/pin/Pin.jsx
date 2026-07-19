@@ -8,12 +8,12 @@ export const Pin = ({item}) => {
     <Marker position={[item.latitude, item.longitude]}>
       <Popup>
         <div className="popupContainer">
-            <img src={item.images} alt="" />
-            <div className="textContainer">
-                <Link to={`/${item.id}`}>{item.title}</Link>
-                <span className="bed">{item.bedroom} bedroom</span>
-                <b>$ {item.price}</b>
-            </div>
+          <img src={item.images[0]} alt={item.title} />
+          <div className="textContainer">
+              <Link to={`/${item.id}`}>{item.title}</Link>
+              <span className="bed">{item.bedroom} bedroom</span>
+              <b>$ {item.price}</b>
+          </div>
         </div>
       </Popup>
     </Marker>

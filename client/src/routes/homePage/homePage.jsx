@@ -26,16 +26,18 @@ export const HomePage = () => {
 
             <div className="boxes">
               <div className="box">
-                <h1>15+</h1>
-                <h2>Years Experience</h2>
+                <h1>3</h1>
+                <h2>Applications</h2>
               </div>
+
               <div className="box">
-                <h1>20+</h1>
-                <h2>Awards</h2>
+                <h1>10+</h1>
+                <h2>Features</h2>
               </div>
+
               <div className="box">
-                <h1>1500+</h1>
-                <h2>Properties</h2>
+                <h1>100%</h1>
+                <h2>Responsive</h2>
               </div>
             </div>
           </div>

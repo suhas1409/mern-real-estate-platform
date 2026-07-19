@@ -1,37 +1,76 @@
 // routes/updatePostPage/UpdatePostPage.jsx
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./updatePostPage.scss";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import apiRequest from "../../lib/apiRequest";
 import { UploadWidget } from "../../components/uploadWidget/uploadWidget";
-import {
-  useLoaderData,
-  useNavigate,
-} from "react-router-dom";
+import { useLoaderData, useNavigate, } from "react-router-dom";
 
 export const UpdatePostPage = () => {
   const post = useLoaderData();
 
-  const [value, setValue] = useState(
-    post.postDetail.desc
-  );
+  const [value, setValue] = useState(post.postDetail.desc);
 
-  const [images, setImages] = useState(
-    post.images || []
-  );
+  // PROPERTY IMAGES
+  const [images, setImages] = useState(post.images || []);
+
+  // CURRENT IMAGE BEING PREVIEWED
+  const [currentImage, setCurrentImage] = useState(0);
 
   const [error, setError] = useState("");
 
-  const [isSubmitting, setIsSubmitting] =
-    useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const navigate = useNavigate();
+
+  // KEEP CURRENT IMAGE INDEX VALID
+  useEffect(() => {
+    if (images.length === 0) {
+      setCurrentImage(0);
+    } else if (currentImage >= images.length) {
+      setCurrentImage(images.length - 1);
+    }
+  }, [images]);
 
   // PREVENT MOUSE WHEEL FROM CHANGING NUMBER INPUT
   const preventNumberScroll = (e) => {
     e.currentTarget.blur();
+  };
+
+  // NEXT IMAGE
+  const nextImage = () => {
+    if (images.length === 0) return;
+
+    setCurrentImage((prev) =>
+      prev === images.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  // PREVIOUS IMAGE
+  const previousImage = () => {
+    if (images.length === 0) return;
+
+    setCurrentImage((prev) =>
+      prev === 0 ? images.length - 1 : prev - 1
+    );
+  };
+
+  // DELETE CURRENT IMAGE
+  const deleteCurrentImage = () => {
+    setImages((prev) => {
+      const updated = prev.filter(
+        (_, index) => index !== currentImage
+      );
+
+      if (updated.length === 0) {
+        setCurrentImage(0);
+      } else if (currentImage >= updated.length) {
+        setCurrentImage(updated.length - 1);
+      }
+
+      return updated;
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -131,7 +170,7 @@ export const UpdatePostPage = () => {
 
       setError(
         err.response?.data?.message ||
-          "Failed to update property"
+        "Failed to update property"
       );
     } finally {
       setIsSubmitting(false);
@@ -152,7 +191,7 @@ export const UpdatePostPage = () => {
             {/* TITLE */}
             <div className="item">
               <label htmlFor="title">
-                Title
+                Title <span className="required">*</span>
               </label>
 
               <input
@@ -160,6 +199,7 @@ export const UpdatePostPage = () => {
                 name="title"
                 type="text"
                 defaultValue={post.title}
+                autoComplete="off"
                 required
               />
             </div>
@@ -167,7 +207,7 @@ export const UpdatePostPage = () => {
             {/* PRICE */}
             <div className="item">
               <label htmlFor="price">
-                Price
+                Price <span className="required">*</span>
               </label>
 
               <input
@@ -177,6 +217,7 @@ export const UpdatePostPage = () => {
                 min={0}
                 step={1}
                 defaultValue={post.price}
+                autoComplete="off"
                 onWheel={preventNumberScroll}
                 required
               />
@@ -185,7 +226,7 @@ export const UpdatePostPage = () => {
             {/* ADDRESS */}
             <div className="item">
               <label htmlFor="address">
-                Address
+                Address <span className="required">*</span>
               </label>
 
               <input
@@ -193,14 +234,15 @@ export const UpdatePostPage = () => {
                 name="address"
                 type="text"
                 defaultValue={post.address}
+                autoComplete="street-address"
                 required
               />
             </div>
 
             {/* DESCRIPTION */}
             <div className="item description">
-              <label htmlFor="desc">
-                Description
+              <label id="descriptionLabel">
+                Description <span className="required">*</span>
               </label>
 
               <ReactQuill
@@ -213,7 +255,7 @@ export const UpdatePostPage = () => {
             {/* CITY */}
             <div className="item">
               <label htmlFor="city">
-                City
+                City <span className="required">*</span>
               </label>
 
               <input
@@ -221,6 +263,7 @@ export const UpdatePostPage = () => {
                 name="city"
                 type="text"
                 defaultValue={post.city}
+                autoComplete="address-level2"
                 required
               />
             </div>
@@ -228,7 +271,7 @@ export const UpdatePostPage = () => {
             {/* BEDROOM */}
             <div className="item">
               <label htmlFor="bedroom">
-                Bedroom Number
+                Bedroom Number <span className="required">*</span>
               </label>
 
               <input
@@ -238,6 +281,7 @@ export const UpdatePostPage = () => {
                 min={1}
                 step={1}
                 defaultValue={post.bedroom}
+                autoComplete="off"
                 onWheel={preventNumberScroll}
                 required
               />
@@ -246,7 +290,7 @@ export const UpdatePostPage = () => {
             {/* BATHROOM */}
             <div className="item">
               <label htmlFor="bathroom">
-                Bathroom Number
+                Bathroom Number <span className="required">*</span>
               </label>
 
               <input
@@ -256,6 +300,7 @@ export const UpdatePostPage = () => {
                 min={1}
                 step={1}
                 defaultValue={post.bathroom}
+                autoComplete="off"
                 onWheel={preventNumberScroll}
                 required
               />
@@ -264,7 +309,7 @@ export const UpdatePostPage = () => {
             {/* LATITUDE */}
             <div className="item">
               <label htmlFor="latitude">
-                Latitude
+                Latitude <span className="required">*</span>
               </label>
 
               <input
@@ -272,6 +317,7 @@ export const UpdatePostPage = () => {
                 name="latitude"
                 type="text"
                 defaultValue={post.latitude}
+                autoComplete="off"
                 required
               />
             </div>
@@ -279,7 +325,7 @@ export const UpdatePostPage = () => {
             {/* LONGITUDE */}
             <div className="item">
               <label htmlFor="longitude">
-                Longitude
+                Longitude <span className="required">*</span>
               </label>
 
               <input
@@ -287,6 +333,7 @@ export const UpdatePostPage = () => {
                 name="longitude"
                 type="text"
                 defaultValue={post.longitude}
+                autoComplete="off"
                 required
               />
             </div>
@@ -294,7 +341,7 @@ export const UpdatePostPage = () => {
             {/* TYPE */}
             <div className="item">
               <label htmlFor="type">
-                Type
+                Type <span className="required">*</span>
               </label>
 
               <select
@@ -316,7 +363,7 @@ export const UpdatePostPage = () => {
             {/* PROPERTY */}
             <div className="item">
               <label htmlFor="property">
-                Property
+                Property <span className="required">*</span>
               </label>
 
               <select
@@ -346,7 +393,7 @@ export const UpdatePostPage = () => {
             {/* UTILITIES */}
             <div className="item">
               <label htmlFor="utilities">
-                Utilities Policy
+                Utilities Policy <span className="required">*</span>
               </label>
 
               <select
@@ -374,7 +421,7 @@ export const UpdatePostPage = () => {
             {/* PET POLICY */}
             <div className="item">
               <label htmlFor="pet">
-                Pet Policy
+                Pet Policy <span className="required">*</span>
               </label>
 
               <select
@@ -408,13 +455,14 @@ export const UpdatePostPage = () => {
                 defaultValue={
                   post.postDetail.income || ""
                 }
+                autoComplete="off"
               />
             </div>
 
             {/* SIZE */}
             <div className="item">
               <label htmlFor="size">
-                Total Size (sqft)
+                Total Size (sqft) <span className="required">*</span>
               </label>
 
               <input
@@ -426,6 +474,7 @@ export const UpdatePostPage = () => {
                 defaultValue={
                   post.postDetail.size
                 }
+                autoComplete="off"
                 onWheel={preventNumberScroll}
                 required
               />
@@ -446,6 +495,7 @@ export const UpdatePostPage = () => {
                 defaultValue={
                   post.postDetail.school ?? 0
                 }
+                autoComplete="off"
                 onWheel={preventNumberScroll}
               />
             </div>
@@ -465,6 +515,7 @@ export const UpdatePostPage = () => {
                 defaultValue={
                   post.postDetail.bus ?? 0
                 }
+                autoComplete="off"
                 onWheel={preventNumberScroll}
               />
             </div>
@@ -485,6 +536,7 @@ export const UpdatePostPage = () => {
                   post.postDetail.restaurant ??
                   0
                 }
+                autoComplete="off"
                 onWheel={preventNumberScroll}
               />
             </div>
@@ -513,28 +565,73 @@ export const UpdatePostPage = () => {
       {/* RIGHT CONTAINER */}
       <div className="sideContainer">
         <h2 className="imageTitle">
-          Property Images
+          Property Images <span className="required">*</span>
         </h2>
 
+        <p className="imageHint">
+          Upload at least one image.
+        </p>
+
+        {/* IMAGE PREVIEW */}
         <div className="imageList">
-          {images.map((image, index) => (
-            <img
-              src={image}
-              key={image}
-              alt={`Property ${index + 1}`}
-            />
-          ))}
+
+          {images.length > 0 && (
+            <div className="imageItem">
+
+              <img
+                src={images[currentImage]}
+                alt="Property"
+              />
+
+              {/* DELETE */}
+              <button
+                type="button"
+                className="deleteImage"
+                onClick={deleteCurrentImage}
+              >
+                ✕
+              </button>
+
+              {/* NAVIGATION */}
+              {images.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    className="prevButton"
+                    onClick={previousImage}
+                  >
+                    ❮
+                  </button>
+
+                  <button
+                    type="button"
+                    className="nextButton"
+                    onClick={nextImage}
+                  >
+                    ❯
+                  </button>
+
+                  <div className="imageCounter">
+                    {currentImage + 1} / {images.length}
+                  </div>
+                </>
+              )}
+            </div>
+          )}
         </div>
 
-        <UploadWidget
-          uwConfig={{
-            multiple: true,
-            cloudName: "dlxb4iac7",
-            uploadPreset: "estate",
-            folder: "posts",
-          }}
-          setState={setImages}
-        />
+        {/* UPLOAD BUTTON */}
+        <div className="uploadContainer">
+          <UploadWidget
+            uwConfig={{
+              multiple: true,
+              cloudName: "dlxb4iac7",
+              uploadPreset: "estate",
+              folder: "posts",
+            }}
+            setState={setImages}
+          />
+        </div>
       </div>
 
       {/* MEDIUM / SMALL UPDATE BUTTON */}

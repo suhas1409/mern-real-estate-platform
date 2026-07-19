@@ -21,27 +21,36 @@ apiRequest.interceptors.request.use(
   }
 );
 
-// HANDLE UNAUTHORIZED REQUESTS
+// HANDLE AUTH ERRORS
 apiRequest.interceptors.response.use(
   (response) => response,
 
   (error) => {
     const status = error.response?.status;
+
+    const message =
+      error.response?.data?.message;
+
     const requestUrl = error.config?.url;
 
     const isAuthRequest =
       requestUrl?.includes("/auth/login") ||
       requestUrl?.includes("/auth/register");
 
+    // TOKEN EXPIRED OR UNAUTHORIZED
     if (
-      status === 401 &&
       !isAuthRequest &&
-      localStorage.getItem("token")
+      localStorage.getItem("token") &&
+      (
+        status === 401 ||
+        status === 403 ||
+        message === "Token expired"
+      )
     ) {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
 
-      window.location.href = "/login";
+      window.location.replace("/login");
     }
 
     return Promise.reject(error);

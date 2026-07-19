@@ -58,6 +58,12 @@
           label {
             font-size: 14px;
             font-weight: 500;
+
+            .required {
+              color: #ff3b30;
+              margin-left: 2px;
+              font-weight: 700;
+            }
           }
 
           input {
@@ -159,45 +165,157 @@
       padding: 25px;
     }
 
-    /* ONLY SHOW TITLE ON MD / SM */
+    /* ONLY SHOW TITLE ON TABLET / MOBILE */
     .imageTitle {
-      display: none;
-
-      @include md {
-        display: block;
-        width: 100%;
-        font-weight: 400;
-      }
+      width: 100%;
+      font-weight: 400;
+      margin-bottom: 10px;
+      padding-left: 30px;
 
       @include sm {
         font-size: 24px;
       }
+
+      .required {
+        color: #ff3b30;
+        margin-left: 2px;
+        font-weight: 700;
+      }
     }
 
-    /* IMAGE LIST */
+    .imageHint {
+      width: 100%;
+      font-size: 13px;
+      color: #777;
+      margin-top: -10px;
+      margin-bottom: 10px;
+      padding-left: 30px;
+
+      @include md {
+        font-size: 13px;
+        margin-top: -8px;
+        margin-bottom: 12px;
+      }
+
+      @include sm {
+        font-size: 12px;
+        margin-top: -6px;
+        margin-bottom: 10px;
+      }
+    }
+
+    /* IMAGE PREVIEW */
     .imageList {
       width: 100%;
       display: flex;
-      flex-direction: column;
-      gap: 20px;
+      justify-content: center;
       align-items: center;
+    }
+
+    /* SINGLE PREVIEW IMAGE */
+    .imageItem {
+      position: relative;
+      width: 90%;
+      max-width: 500px;
 
       img {
-        width: 50%;
-        height: 180px;
+        width: 100%;
+        height: 320px;
         object-fit: cover;
-        border-radius: 8px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 
         @include md {
-          width: 60%;
-          height: 220px;
+          height: 260px;
         }
 
         @include sm {
-          width: 100%;
           height: 220px;
         }
       }
+
+      /* DELETE BUTTON */
+      .deleteImage {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+
+        width: 34px;
+        height: 34px;
+
+        border: none;
+        border-radius: 50%;
+
+        background: rgba(0, 0, 0, 0.75);
+        color: white;
+
+        font-size: 18px;
+        cursor: pointer;
+        transition: 0.25s;
+      }
+
+      .deleteImage:hover {
+        background: #ff3b30;
+      }
+
+      /* PREVIOUS BUTTON */
+      .prevButton,
+      .nextButton {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+
+        width: 42px;
+        height: 42px;
+
+        border: none;
+        border-radius: 50%;
+
+        background: rgba(0, 0, 0, 0.55);
+        color: white;
+
+        font-size: 22px;
+        cursor: pointer;
+        transition: 0.25s;
+      }
+
+      .prevButton:hover,
+      .nextButton:hover {
+        background: rgba(0, 0, 0, 0.8);
+      }
+
+      .prevButton {
+        left: 12px;
+      }
+
+      .nextButton {
+        right: 12px;
+      }
+
+      /* IMAGE COUNTER */
+      .imageCounter {
+        position: absolute;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+
+        background: rgba(0, 0, 0, 0.65);
+        color: white;
+
+        padding: 6px 14px;
+        border-radius: 20px;
+
+        font-size: 14px;
+        font-weight: 600;
+      }
+    }
+
+    /* UPLOAD BUTTON */
+    .uploadContainer {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
     }
   }
 

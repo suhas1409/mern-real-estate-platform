@@ -1,7 +1,5 @@
 // routes/newPostPage/NewPostPage.jsx
-
-import { useState } from "react";
-import "./newPostPage.scss";
+import { useState, useEffect } from "react";import "./newPostPage.scss";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import apiRequest from "../../lib/apiRequest";
@@ -9,18 +7,65 @@ import { UploadWidget } from "../../components/uploadWidget/uploadWidget";
 import { useNavigate } from "react-router-dom";
 
 export const NewPostPage = () => {
+  
+  // PROPERTY DESCRIPTION
   const [value, setValue] = useState("");
+  // STORES ALL UPLOADED IMAGE URLS
   const [images, setImages] = useState([]);
+  // CURRENT IMAGE INDEX FOR PREVIEW
+  const [currentImage, setCurrentImage] = useState(0);
   const [error, setError] = useState("");
-
-  const [isSubmitting, setIsSubmitting] =
-    useState(false);
+  const [isSubmitting, setIsSubmitting] =useState(false);
 
   const navigate = useNavigate();
+
+  // Whenever images change, make sure current preview is valid
+  useEffect(() => {
+    if (images.length === 0) {
+      setCurrentImage(0);
+    } else if (currentImage >= images.length) {
+      setCurrentImage(images.length - 1);
+    }
+  }, [images]);
 
   // PREVENT MOUSE WHEEL FROM CHANGING NUMBER INPUT
   const preventNumberScroll = (e) => {
     e.currentTarget.blur();
+  };
+
+  // SHOW NEXT IMAGE
+  const nextImage = () => {
+    if (images.length === 0) return;
+
+    setCurrentImage((prev) =>
+      prev === images.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  // SHOW PREVIOUS IMAGE
+  const previousImage = () => {
+    if (images.length === 0) return;
+
+    setCurrentImage((prev) =>
+      prev === 0 ? images.length - 1 : prev - 1
+    );
+  };
+
+  // DELETE CURRENTLY DISPLAYED IMAGE
+  const deleteCurrentImage = () => {
+    setImages((prev) => {
+      const updated = prev.filter(
+        (_, index) => index !== currentImage
+      );
+
+      if (updated.length === 0) {
+        setCurrentImage(0);
+      } else if (currentImage >= updated.length) {
+        setCurrentImage(updated.length - 1);
+      }
+
+      return updated;
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -141,13 +186,14 @@ export const NewPostPage = () => {
             {/* TITLE */}
             <div className="item">
               <label htmlFor="title">
-                Title
+                Title <span className="required">*</span>
               </label>
 
               <input
                 id="title"
                 name="title"
                 type="text"
+                autoComplete="off"
                 required
               />
             </div>
@@ -155,7 +201,7 @@ export const NewPostPage = () => {
             {/* PRICE */}
             <div className="item">
               <label htmlFor="price">
-                Price
+                Price <span className="required">*</span>
               </label>
 
               <input
@@ -164,6 +210,7 @@ export const NewPostPage = () => {
                 type="number"
                 min={0}
                 step={1}
+                autoComplete="off"
                 onWheel={preventNumberScroll}
                 required
               />
@@ -172,40 +219,42 @@ export const NewPostPage = () => {
             {/* ADDRESS */}
             <div className="item">
               <label htmlFor="address">
-                Address
+                Address <span className="required">*</span>
               </label>
 
               <input
                 id="address"
                 name="address"
                 type="text"
+                autoComplete="street-address"
                 required
               />
             </div>
 
             {/* DESCRIPTION */}
             <div className="item description">
-              <label htmlFor="desc">
-                Description
+              <label id="descriptionLabel">
+                Description <span className="required">*</span>
               </label>
 
               <ReactQuill
                 theme="snow"
-                onChange={setValue}
                 value={value}
+                onChange={setValue}
               />
             </div>
 
             {/* CITY */}
             <div className="item">
               <label htmlFor="city">
-                City
+                City <span className="required">*</span>
               </label>
 
               <input
                 id="city"
                 name="city"
                 type="text"
+                autoComplete="address-level2"
                 required
               />
             </div>
@@ -213,7 +262,7 @@ export const NewPostPage = () => {
             {/* BEDROOM */}
             <div className="item">
               <label htmlFor="bedroom">
-                Bedroom Number
+                Bedroom Number <span className="required">*</span>
               </label>
 
               <input
@@ -222,6 +271,7 @@ export const NewPostPage = () => {
                 type="number"
                 min={1}
                 step={1}
+                autoComplete="off"
                 onWheel={preventNumberScroll}
                 required
               />
@@ -230,7 +280,7 @@ export const NewPostPage = () => {
             {/* BATHROOM */}
             <div className="item">
               <label htmlFor="bathroom">
-                Bathroom Number
+                Bathroom Number <span className="required">*</span>
               </label>
 
               <input
@@ -239,6 +289,7 @@ export const NewPostPage = () => {
                 type="number"
                 min={1}
                 step={1}
+                autoComplete="off"
                 onWheel={preventNumberScroll}
                 required
               />
@@ -247,13 +298,14 @@ export const NewPostPage = () => {
             {/* LATITUDE */}
             <div className="item">
               <label htmlFor="latitude">
-                Latitude
+                Latitude <span className="required">*</span>
               </label>
 
               <input
                 id="latitude"
                 name="latitude"
                 type="text"
+                autoComplete="off"
                 required
               />
             </div>
@@ -261,13 +313,14 @@ export const NewPostPage = () => {
             {/* LONGITUDE */}
             <div className="item">
               <label htmlFor="longitude">
-                Longitude
+                Longitude <span className="required">*</span>
               </label>
 
               <input
                 id="longitude"
                 name="longitude"
                 type="text"
+                autoComplete="off"
                 required
               />
             </div>
@@ -275,7 +328,7 @@ export const NewPostPage = () => {
             {/* TYPE */}
             <div className="item">
               <label htmlFor="type">
-                Type
+                Type <span className="required">*</span>
               </label>
 
               <select
@@ -297,7 +350,7 @@ export const NewPostPage = () => {
             {/* PROPERTY */}
             <div className="item">
               <label htmlFor="property">
-                Property
+                Property <span className="required">*</span>
               </label>
 
               <select
@@ -327,7 +380,7 @@ export const NewPostPage = () => {
             {/* UTILITIES */}
             <div className="item">
               <label htmlFor="utilities">
-                Utilities Policy
+                Utilities Policy <span className="required">*</span>
               </label>
 
               <select
@@ -353,7 +406,7 @@ export const NewPostPage = () => {
             {/* PET POLICY */}
             <div className="item">
               <label htmlFor="pet">
-                Pet Policy
+                Pet Policy <span className="required">*</span>
               </label>
 
               <select
@@ -382,6 +435,7 @@ export const NewPostPage = () => {
                 id="income"
                 name="income"
                 type="text"
+                autoComplete="off"
                 placeholder="Income Policy"
               />
             </div>
@@ -389,7 +443,7 @@ export const NewPostPage = () => {
             {/* SIZE */}
             <div className="item">
               <label htmlFor="size">
-                Total Size (sqft)
+                Total Size (sqft) <span className="required">*</span>
               </label>
 
               <input
@@ -398,6 +452,7 @@ export const NewPostPage = () => {
                 type="number"
                 min={1}
                 step={1}
+                autoComplete="off"
                 onWheel={preventNumberScroll}
                 required
               />
@@ -415,6 +470,7 @@ export const NewPostPage = () => {
                 type="number"
                 min={0}
                 step={1}
+                autoComplete="off"
                 onWheel={preventNumberScroll}
               />
             </div>
@@ -431,6 +487,7 @@ export const NewPostPage = () => {
                 type="number"
                 min={0}
                 step={1}
+                autoComplete="off"
                 onWheel={preventNumberScroll}
               />
             </div>
@@ -447,6 +504,7 @@ export const NewPostPage = () => {
                 type="number"
                 min={0}
                 step={1}
+                autoComplete="off"
                 onWheel={preventNumberScroll}
               />
             </div>
@@ -475,28 +533,77 @@ export const NewPostPage = () => {
       {/* RIGHT CONTAINER */}
       <div className="sideContainer">
         <h2 className="imageTitle">
-          Property Images
+          Property Images <span className="required">*</span>
         </h2>
+        
+        <p className="imageHint">
+          Upload at least one property image.
+        </p>
 
+        {/* IMAGE PREVIEW */}
         <div className="imageList">
-          {images.map((image, index) => (
-            <img
-              src={image}
-              key={image}
-              alt={`Property ${index + 1}`}
-            />
-          ))}
+
+          {/* SHOW IMAGE ONLY IF AT LEAST ONE IMAGE EXISTS */}
+          {images.length > 0 && (
+            <div className="imageItem">
+
+              <img
+                src={images[currentImage]}
+                alt="Property"
+              />
+
+              {/* DELETE IMAGE */}
+              <button
+                type="button"
+                className="deleteImage"
+                onClick={deleteCurrentImage}
+              >
+                ✕
+              </button>
+
+              {/* SHOW NAVIGATION ONLY WHEN MULTIPLE IMAGES EXIST */}
+              {images.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    className="prevButton"
+                    onClick={previousImage}
+                  >
+                    ❮
+                  </button>
+
+                  <button
+                    type="button"
+                    className="nextButton"
+                    onClick={nextImage}
+                  >
+                    ❯
+                  </button>
+
+                  {/* IMAGE COUNTER */}
+                  <div className="imageCounter">
+                    {currentImage + 1} / {images.length}
+                  </div>
+                </>
+              )}
+
+            </div>
+          )}
+
         </div>
 
-        <UploadWidget
-          uwConfig={{
-            multiple: true,
-            cloudName: "dlxb4iac7",
-            uploadPreset: "estate",
-            folder: "posts",
-          }}
-          setState={setImages}
-        />
+        {/* UPLOAD BUTTON */}
+        <div className="uploadContainer">
+          <UploadWidget
+            uwConfig={{
+              multiple: true,
+              cloudName: "dlxb4iac7",
+              uploadPreset: "estate",
+              folder: "posts",
+            }}
+            setState={setImages}
+          />
+        </div>
       </div>
 
       {/* MEDIUM / SMALL ADD BUTTON */}
