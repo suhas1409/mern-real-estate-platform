@@ -60,7 +60,7 @@ export const ProfilePage = () => {
     try {
       await apiRequest.post("/auth/logout");
     } catch (err) {
-      console.log(err);
+      console.error(err);
     } finally {
       localStorage.removeItem("token");
       localStorage.removeItem("user");

@@ -31,7 +31,6 @@ export const UploadWidget = ({ uwConfig, setPublicId, setState }) => {
         uwConfig,
         (error, result) => {
           if (!error && result && result.event === "success") {
-            console.log("Done! Here is the image info: ", result.info);
             setState(prev => [...prev, result.info.secure_url]);
         }
         }

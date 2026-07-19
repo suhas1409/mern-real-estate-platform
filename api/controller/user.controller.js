@@ -16,7 +16,7 @@ export const getUsers = async (req, res) => {
 
     res.status(200).json(users);
   } catch (err) {
-    console.log(err);
+    console.error(err);
 
     res.status(500).json({
       message: "Failed to get users!",
@@ -48,7 +48,7 @@ export const getUser = async (req, res) => {
 
     res.status(200).json(user);
   } catch (err) {
-    console.log(err);
+    console.error(err);
 
     res.status(500).json({
       message: "Failed to get user!",
@@ -152,7 +152,7 @@ export const updateUser = async (req, res) => {
 
     res.status(200).json(userInfo);
   } catch (err) {
-    console.log(err);
+    console.error(err);
 
     res.status(500).json({
       message: "Failed to update user!",
@@ -180,7 +180,7 @@ export const deleteUser = async (req, res) => {
       message: "User deleted successfully",
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
 
     res.status(500).json({
       message: "Failed to delete user!",
@@ -250,7 +250,7 @@ export const savePost = async (req, res) => {
       isSaved: true,
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
 
     res.status(500).json({
       message: "Failed to save post!",
@@ -294,7 +294,7 @@ export const profilePosts = async (req, res) => {
       savedPosts,
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
 
     res.status(500).json({
       message: "Failed to get profile posts!",
@@ -325,7 +325,7 @@ export const getNotificationNumber = async (
 
     res.status(200).json(number);
   } catch (err) {
-    console.log(err);
+    console.error(err);
 
     res.status(500).json({
       message: "Failed to get notification",

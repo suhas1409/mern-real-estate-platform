@@ -15,7 +15,7 @@ export const useNotificationStore = create((set) => ({
         number: res.data,
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   },
 

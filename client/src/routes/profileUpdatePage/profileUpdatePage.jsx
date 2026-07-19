@@ -47,7 +47,7 @@ export const ProfileUpdatePage = () => {
       updateUser(res.data);
       navigate("/profile");
     } catch (err) {
-      console.log(err);
+      console.error(err);
 
       setError(
         err.response?.data?.message ||

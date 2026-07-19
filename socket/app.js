@@ -43,13 +43,9 @@ const getUsers = (userId) => {
 };
 
 io.on("connection", (socket) => {
-  console.log("User connected:", socket.id);
-
   // REGISTER USER
   socket.on("newUser", (userId) => {
     addUser(userId, socket.id);
-
-    console.log("Online users:", onlineUsers);
   });
 
   // SEND MESSAGE
@@ -70,16 +66,6 @@ io.on("connection", (socket) => {
   // DISCONNECT USER
   socket.on("disconnect", () => {
     removeUser(socket.id);
-
-    console.log(
-      "User disconnected:",
-      socket.id
-    );
-
-    console.log(
-      "Online users:",
-      onlineUsers
-    );
   });
 });
 

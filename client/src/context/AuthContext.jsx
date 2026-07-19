@@ -24,12 +24,7 @@ export const AuthContextProvider = ({
 
         return JSON.parse(storedUser);
       } catch {
-        console.log(
-          "Invalid user data in localStorage"
-        );
-
         localStorage.removeItem("user");
-
         return null;
       }
     });

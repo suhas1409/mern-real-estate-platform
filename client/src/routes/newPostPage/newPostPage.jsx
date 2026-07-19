@@ -161,7 +161,7 @@ export const NewPostPage = () => {
 
       navigate("/" + res.data.id);
     } catch (err) {
-      console.log(err);
+      console.error(err);
 
       setError(
         err.response?.data?.message ||

@@ -103,7 +103,7 @@ export const Chat = ({ chats }) => {
         receiver,
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -144,7 +144,7 @@ export const Chat = ({ chats }) => {
         },
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -172,7 +172,7 @@ export const Chat = ({ chats }) => {
             "/chats/read/" + chat.id
           );
         } catch (err) {
-          console.log(err);
+          console.error(err);
         }
 
         return;

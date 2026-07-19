@@ -166,7 +166,7 @@ export const UpdatePostPage = () => {
 
       navigate("/profile");
     } catch (err) {
-      console.log(err);
+      console.error(err);
 
       setError(
         err.response?.data?.message ||

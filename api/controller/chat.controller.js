@@ -40,7 +40,7 @@ export const getChats = async (req, res) => {
 
     res.status(200).json(chatsWithReceiver);
   } catch (err) {
-    console.log("GET CHATS ERROR:", err);
+    console.error("GET CHATS ERROR:", err);
 
     res.status(500).json({
       message: "Failed to get chats!",
@@ -95,7 +95,7 @@ export const getChat = async (req, res) => {
         : [...chat.seenBy, tokenUserId],
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
 
     res.status(500).json({
       message: "Failed to get chat!",
@@ -164,7 +164,7 @@ export const addChat = async (req, res) => {
 
     res.status(201).json(newChat);
   } catch (err) {
-    console.log(err);
+    console.error(err);
 
     res.status(500).json({
       message: "Failed to add chat!",
@@ -213,7 +213,7 @@ export const readChat = async (req, res) => {
 
     return res.status(200).json(updatedChat);
   } catch (err) {
-    console.log("READ CHAT ERROR:", err);
+    console.error("READ CHAT ERROR:", err);
 
     return res.status(500).json({
       message: "Failed to read chat!",

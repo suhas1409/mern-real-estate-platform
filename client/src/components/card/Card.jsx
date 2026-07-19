@@ -50,7 +50,7 @@ export const Card = ({item, onRemoveSaved, isOwner = false, onDelete}) => {
         }
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
 
       if (err.response?.status === 401) {
         navigate("/login");
@@ -79,7 +79,7 @@ export const Card = ({item, onRemoveSaved, isOwner = false, onDelete}) => {
         },
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -103,7 +103,7 @@ export const Card = ({item, onRemoveSaved, isOwner = false, onDelete}) => {
         onDelete(item.id);
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
       alert("Failed to delete property");
     }
   };

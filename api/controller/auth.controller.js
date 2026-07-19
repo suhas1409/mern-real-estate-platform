@@ -83,7 +83,7 @@ export const register = async (req, res) => {
       user: userInfo,
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
 
     res.status(500).json({
       message: "Failed to register",
@@ -153,7 +153,7 @@ export const login = async (req, res) => {
       user: userInfo,
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
 
     res.status(500).json({
       message: "Failed to login",

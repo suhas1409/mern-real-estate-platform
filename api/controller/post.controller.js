@@ -104,7 +104,7 @@ export const getPosts = async (req, res) => {
       postsWithSavedStatus
     );
   } catch (err) {
-    console.log(err);
+    console.error(err);
 
     res.status(500).json({
       message: "Failed to get posts",
@@ -165,7 +165,7 @@ export const getPost = async (req, res) => {
       isSaved: !!saved,
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
 
     res.status(500).json({
       message: "Failed to get post",
@@ -233,7 +233,7 @@ export const addPost = async (req, res) => {
 
     res.status(201).json(newPost);
   } catch (err) {
-    console.log(err);
+    console.error(err);
 
     res.status(500).json({
       message: "Failed to create post",
@@ -365,7 +365,7 @@ export const updatePosts = async (req, res) => {
 
     res.status(200).json(updatedPost);
   } catch (err) {
-    console.log(err);
+    console.error(err);
 
     res.status(500).json({
       message: "Failed to update post",
@@ -420,7 +420,7 @@ export const deletePosts = async (req, res) => {
         "Property deleted successfully",
     });
   } catch (err) {
-    console.log("DELETE ERROR:", err);
+    console.error("DELETE ERROR:", err);
 
     res.status(500).json({
       message:
