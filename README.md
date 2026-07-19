@@ -2,6 +2,12 @@
 
 A full-stack real estate web application built using the MERN stack that allows users to browse, search, save, and manage property listings. The platform also includes real-time messaging between property owners and interested users.
 
+## 🌐 Live Demo
+
+**Frontend:** Coming Soon...
+
+**Backend API:** Coming Soon...
+
 ## ✨ Features
 
 - User registration and login
@@ -52,6 +58,44 @@ A full-stack real estate web application built using the MERN stack that allows 
 - MongoDB Atlas
 - Cloudinary
 
+## 📸 Screenshots
+
+### Home Page
+
+![Home](screenshots/home-page.png)
+
+### Property Listing
+
+![Property Listing](screenshots/property-listing-page.png)
+
+### Property Details
+
+![Property Details](screenshots/property-details-page.png)
+
+### Add Property
+
+![Add Property](screenshots/add-property.png)
+
+### Favorites
+
+![Favorites](screenshots/favorites-page.png)
+
+### Profile-Messages
+
+![Profile-Messages](screenshots/profile-chat-page.png)
+
+### Update Property
+
+![Update Property](screenshots/update-property.png)
+
+### Login
+
+![Login](screenshots/login-page.png)
+
+### Register
+
+![Register](screenshots/registe-pager.png)
+
 ## 📁 Project Structure
 
 ```text
@@ -77,3 +121,78 @@ mern-real-estate-platform/
 │   └── app.js
 │
 └── README.md
+```
+
+## 🚀 Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/suhas1409/mern-real-estate-platform.git
+```
+
+Install backend
+
+```bash
+cd api
+npm install
+```
+
+Install frontend
+
+```bash
+cd ../client
+npm install
+```
+
+Install socket server
+
+```bash
+cd ../socket
+npm install
+```
+
+## ▶️ Run Locally
+
+Backend
+
+```bash
+cd api
+npm start
+```
+
+Frontend
+
+```bash
+cd client
+npm run dev
+```
+
+Socket Server
+
+```bash
+cd socket
+node app.js
+```
+
+## 🔐 Environment Variables
+
+Backend (`api/.env`)
+
+```env
+DATABASE_URL=
+JWT_SECRET_KEY=
+CLIENT_URL=
+```
+
+Frontend (`client/.env`)
+
+```env
+VITE_API_URL=
+```
+
+## 👨‍💻 Author
+
+**Suhas Bhavsar**
+
+GitHub: https://github.com/suhas1409
