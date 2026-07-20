@@ -172,11 +172,16 @@
     align-self: stretch;
     background-color: #fcf5f3;
     min-width: 0;
+    position: sticky;
+    top: 0;
+    height: calc(100vh);
 
     @include md {
       display: none;
       width: 100%;
       min-height: 500px;
+      position: static;
+      height: auto;
 
       &.show {
         display: block;
@@ -184,6 +189,7 @@
     }
 
     .wrapper {
+      height: 100%;
       padding: 20px;
       box-sizing: border-box;
 
