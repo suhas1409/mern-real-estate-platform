@@ -75,14 +75,31 @@ export const Slider = ({ images }) => {
 
       {/* SMALL IMAGES */}
       <div className="smallImages">
-        {sliderImages.slice(1).map((image, index) => (
-          <img
-            src={image}
-            alt={`Property ${index + 2}`}
-            key={index}
-            onClick={() => setImageIndex(index + 1)}
-          />
-        ))}
+        {sliderImages.slice(1, 4).map((image, index) => {
+          const actualIndex = index + 1;
+          const remainingImages = sliderImages.length - 4;
+          const isLastThumbnail =
+            index === 2 && remainingImages > 0;
+
+          return (
+            <div
+              className="thumb"
+              key={actualIndex}
+              onClick={() => setImageIndex(actualIndex)}
+            >
+              <img
+                src={image}
+                alt={`Property ${actualIndex + 1}`}
+              />
+
+              {isLastThumbnail && (
+                <div className="overlay">
+                  +{remainingImages} More
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
