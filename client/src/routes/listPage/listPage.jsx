@@ -1,5 +1,4 @@
 // src/routes/listPage/ListPage.jsx
-
 import React, { Suspense, useState } from "react";
 import "./listPage.scss";
 import { Await, useLoaderData } from "react-router-dom";
@@ -16,17 +15,21 @@ export const ListPage = () => {
       {/* MOBILE AND TABLET VIEW SWITCHER */}
       <div className="viewSwitcher">
         <button
-          className={view === "list" ? "active" : ""}
+          className={
+            view === "list" ? "active" : ""
+          }
           onClick={() => setView("list")}
         >
-          List View
+          Property List
         </button>
 
         <button
-          className={view === "map" ? "active" : ""}
+          className={
+            view === "map" ? "active" : ""
+          }
           onClick={() => setView("map")}
         >
-          Map View
+          Map
         </button>
       </div>
 
@@ -96,4 +99,4 @@ export const ListPage = () => {
       )}
     </div>
   );
-};
+}

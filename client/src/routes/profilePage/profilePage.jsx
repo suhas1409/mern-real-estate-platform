@@ -1,23 +1,20 @@
 // src/routes/profilePage/ProfilePage.jsx
-
 import React, {
   useContext,
   Suspense,
   useState,
   useEffect,
 } from "react";
-
 import "./profilePage.scss";
-
 import { List } from "../../components/list/list";
 import { Chat } from "../../components/chat/chat";
 import apiRequest from "../../lib/apiRequest";
-
 import {
   Await,
   Link,
   useLoaderData,
   useNavigate,
+  useLocation,
 } from "react-router-dom";
 
 import { AuthContext } from "../../context/AuthContext";
@@ -28,7 +25,8 @@ export const ProfilePage = () => {
   const { updateUser, currentUser } =
     useContext(AuthContext);
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
+    const location = useLocation();
 
   const [userPosts, setUserPosts] = useState([]);
   const [view, setView] = useState("properties");
@@ -47,6 +45,13 @@ export const ProfilePage = () => {
       isMounted = false;
     };
   }, [data]);
+
+  // Show the Messages tab when a chat is opened from another page.
+  useEffect(() => {
+    if(location.state?.openChatId) {
+      setView("messages");
+    }
+  }, [location.state]);
 
   // REMOVE DELETED PROPERTY
   const handleDeletePost = (postId) => {

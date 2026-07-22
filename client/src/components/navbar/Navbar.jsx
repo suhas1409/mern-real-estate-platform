@@ -1,13 +1,26 @@
 import React, { useContext, useState, useEffect } from "react";
 import "./navbar.scss";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { useNotificationStore } from "../../lib/notificationStore";
+import { Heart } from "lucide-react";
 
 export const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   const { currentUser } = useContext(AuthContext);
+
+  const location = useLocation();
+
+  const mobileAuthLink =
+    location.pathname === "/login"
+      ? "/register"
+      : "/login";
+
+  const mobileAuthText =
+    location.pathname === "/login"
+      ? "Sign up"
+      : "Sign in";
 
   const fetchNotifications = useNotificationStore(
     (state) => state.fetch
@@ -63,10 +76,11 @@ export const Navbar = () => {
         <NavLink
           to="/favorites"
           className={({ isActive }) =>
-            isActive ? "active" : ""
+            `favoritesLink ${isActive ? "active" : ""}`
           }
         >
-          ❤️ Favorites
+          <Heart size={18}/>
+          <span>Favorites</span>
         </NavLink>
       </div>
 
@@ -98,20 +112,32 @@ export const Navbar = () => {
         ) : (
           <>
             <Link to="/login">Sign in</Link>
-
-            <Link to="/register" className="register">
+            <Link to="/register" className="registerBtn">
               Sign up
             </Link>
           </>
         )}
 
-        {/* MOBILE MENU ICON */}
-        <div className="menuIcon">
-          <img
-            src="/menu.png"
-            alt="menu"
-            onClick={() => setOpen((prev) => !prev)}
-          />
+        {/* MOBILE ACTIONS */}
+        <div className="menuActions">
+          {!currentUser &&
+            (location.pathname === "/login" ||
+              location.pathname === "/register") && (
+              <Link
+                to={mobileAuthLink}
+                className="mobileAuthBtn"
+              >
+                {mobileAuthText}
+              </Link>
+            )}
+
+          <div className="menuIcon">
+            <img
+              src="/menu.png"
+              alt="menu"
+              onClick={() => setOpen((prev) => !prev)}
+            />
+          </div>
         </div>
 
         {/* MOBILE MENU */}
@@ -130,9 +156,11 @@ export const Navbar = () => {
 
           <Link
             to="/favorites"
+            className="favoritesLink"
             onClick={() => setOpen(false)}
           >
-            ❤️ Favorites
+            <Heart size={18} />
+            <span>Favorites</span>
           </Link>
 
           {currentUser ? (

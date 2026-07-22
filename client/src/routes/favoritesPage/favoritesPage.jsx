@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./favoritesPage.scss";
+import { Heart, ChartColumn } from "lucide-react";
 import { List } from "../../components/list/list";
 import apiRequest from "../../lib/apiRequest";
 
@@ -68,7 +69,7 @@ export const FavoritesPage = () => {
             setActiveTab("favorites")
           }
         >
-          ❤️ Favorites
+          <Heart size={18}/> <span>Favorites</span>
         </button>
 
         <button
@@ -81,7 +82,7 @@ export const FavoritesPage = () => {
             setActiveTab("stats")
           }
         >
-          📊 Stats
+          <ChartColumn size={18}/> <span>Stats</span>
         </button>
       </div>
 
@@ -96,7 +97,8 @@ export const FavoritesPage = () => {
         <div className="wrapper">
           <div className="title">
             <h1>
-              ❤️ Favorites ({savedPosts.length})
+              <span>Favorites</span>
+              ({savedPosts.length})
             </h1>
           </div>
 

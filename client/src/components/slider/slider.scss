@@ -142,7 +142,7 @@
 
         @include sm {
             flex-direction: row;
-            overflow-x: auto;
+            gap: 10px;
         }
 
         .thumb {
@@ -156,9 +156,9 @@
             }
 
             @include sm {
-                width: 100px;
-                height: 75px;
-                flex-shrink: 0;
+                flex: 1;
+                width: auto;
+                height: 80px;
             }
 
             img {

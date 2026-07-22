@@ -18,7 +18,7 @@
       width: 100%;
       display: flex;
       gap: 10px;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
 
     button {
@@ -29,6 +29,14 @@
       background-color: #f1f1f1;
       font-weight: 600;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+
+      svg {
+        flex-shrink: 0;
+      }
 
       &.active {
         background-color: #fece51;
@@ -69,6 +77,9 @@
 
         h1 {
           font-weight: 300;
+          display: flex;
+          align-items: center;
+          gap: 10px;
 
           @include sm {
             font-size: 26px;
